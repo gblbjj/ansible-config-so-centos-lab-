@@ -1,0 +1,11 @@
+- name: install  epel
+  yum: 
+    name: epel-release
+    state: present
+
+- name: update  all packages system
+  yum:
+    name: '*'
+    update_cache: yes
+    state: latest
+      

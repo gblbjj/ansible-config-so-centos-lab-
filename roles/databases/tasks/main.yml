@@ -1,0 +1,14 @@
+- name: create usar to databases
+  mysql_user: 
+    name: scoob
+    host:
+    password: scoob
+    priv: '*.*:ALL'
+    state: present
+
+- name: create database teste
+  mysql_db:
+    name: yoda
+    state: present 
+
+- name:         
