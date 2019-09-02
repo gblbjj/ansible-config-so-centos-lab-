@@ -1,0 +1,15 @@
+---
+- name: install and config squid
+  hosts: lab
+  remote_user: gabriel
+  become: yes
+  pre_tasks:
+    - name: list users 
+      shell: "cat /etc/passwd | cut -d: -f1 | grep gabriel"
+      register: default_user
+  roles:
+    - user
+    - s.o 
+    - packages-default
+    - databases
+

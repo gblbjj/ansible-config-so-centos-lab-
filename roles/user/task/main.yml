@@ -1,0 +1,18 @@
+- name: create  user default
+  user:
+    name: gabriel
+    comment: usuario padrao para lab 
+    shell: /bin/bash
+    password: 201215
+    groups: gabriel
+  when: default_user.stdout != "gabriel"
+
+- name: Add user "gabriel" to sudo     
+  lineinfile:
+    path: /etc/sudoers.d/gabriel
+    line: 'gabriel ALL=(ALL) NOPASSWD: ALL'
+    state: present
+    mode: 0440
+    create: yes
+    validate: 'visudo -cf %s'
+  when: default_user.stdout != "gabriel"  

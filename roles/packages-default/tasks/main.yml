@@ -10,30 +10,28 @@
     - yum-utils
     - git
     - net-tools
-    - mariadb
     - mariadb-server 
     - MySQL-python
+    - mariadb
 
 - name: started packages 
-  systemd:
-    name: "{{ item }}"
+  service:
+    name: httpd
     state: started
     enabled: yes
-  with_items:
-    - httpd
-    - madriadb
 
-- name:   
+- name: started packages 
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
+    
+
+- name:   check services requires
   shell: "systemctl status htttpd | sed -n 3p | awk '/active/ {print $2}' ; systemctl status mariadb | sed -n 3p | awk '/active/ {print $2}'"
   register: service_status
 
 - name: check start
-  systemd:
-    name: "{{ item }}"
-    state: started
-    enabled: yes
-  with_items:
-    - httpd
-    - mariadb
+  shell: "systemctl start httpd && systemctl start mariad"
   when: service_status.stdout == "inactive"       
             
