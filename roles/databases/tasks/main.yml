@@ -11,4 +11,21 @@
     name: yoda
     state: present 
 
-- name:         
+# # - name: config bind to connect all 
+# #   shell: "netstat -ln | grep 3306"
+          
+# - name: open bind conf mysql
+#   become: yes
+#   command:  rm -rf /etc/mysql/my.cnf
+  
+# - name: Upload archive my.cnf default
+#   become: yes
+#   copy: 
+#     src: files/my.cnf
+#     dest: /etc/mysql/
+#     mode: 0644          
+
+- name: restart databases
+  service:
+    name: mariadb
+    state: restarted
